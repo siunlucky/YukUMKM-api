@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // comment salah satu dari 2 baris di bawah ini sesuai dengan database yang kamu gunakan
+  provider = "postgresql"
+  // provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model role {
+  id String @id @default(uuid())
+  name String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  created_by String @default("system")
+  updated_by String @default("system")
+
+  users user[]
+}
+
+model user {
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  profile_uri String?
+  address String?
+  role_id String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  created_by String @default("system")
+  updated_by String @default("system")
+  
+  role role @relation(fields: [role_id], references: [id], onDelete: Cascade)
+
+  items item[]
+  blogs blog[]
+  comments comment[]
+  detail_seller detailSeller?
+}
+
+model detailSeller {
+  id String @id @default(uuid())
+  user_id String @unique
+  phone_number String?
+  description String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  created_by String @default("system")
+  updated_by String @default("system")
+
+  user user @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  @@map("detail_seller")
+}
+
+model blog {
+  id String @id @default(uuid())
+  title String
+  content String
+  user_id String
+  image_uri String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  created_by String @default("system")
+  updated_by String @default("system")
+
+  user user @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  comments comment[]
+}
+
+model comment {
+  id String @id @default(uuid())
+  user_id String
+  blog_id String
+  comment String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  created_by String @default("system")
+  updated_by String @default("system")
+
+  user user @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  blog blog @relation(fields: [blog_id], references: [id], onDelete: Cascade)
+}
+
+model item {
+  id String @id @default(uuid())
+  user_id String
+  name String
+  item_category_id String
+  price Int
+  description String
+  is_active Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  created_by String @default("system")
+  updated_by String @default("system")
+
+  item_image itemImage[]
+  item_category itemCategory @relation(fields: [item_category_id], references: [id], onDelete: Cascade)
+  user user @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model itemImage {
+  id String @id @default(uuid())
+  item_id String
+  uri String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  created_by String @default("system")
+  updated_by String @default("system")
+
+  item item @relation(fields: [item_id], references: [id], onDelete: Cascade)
+  @@map("item_image")
+}
+
+model itemCategory {
+  id String @id @default(uuid())
+  name String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  created_by String @default("system")
+  updated_by String @default("system")
+
+  items item[]
+  @@map("item_category")
+}
