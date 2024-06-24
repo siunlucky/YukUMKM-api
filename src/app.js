@@ -1,20 +1,11 @@
 const express = require("express");
+const cors = require('cors')
 const errorHandler = require("./utils/errorHandler");
 const dotenv = require("dotenv");
 dotenv.config();
 const app = express();
 
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-})
-
-const upload = multer({ storage });
+app.use(cors())
 
 app.use(express.json());
 
