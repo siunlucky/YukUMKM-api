@@ -21,7 +21,6 @@ const routes = require("./routes");
 
 app.use("/api", routes);
 
-
 app.use(errorHandler)
 
 module.exports = app;
