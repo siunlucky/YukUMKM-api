@@ -20,8 +20,6 @@ jobs:
     - name: 🔨 Build Project
       run: |
         npm install
-        npx prisma migrate dev --name=prod
-        npx prisma db seed
     
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
