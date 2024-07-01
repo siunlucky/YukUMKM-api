@@ -11,7 +11,7 @@ const errorHandler = (err, req, res, next) => {
             data: null,
             error: {
                 name: "InternalServerError",
-                message: "Something went wrong!",
+                message: err.message,
                 validation: null
             }
         });

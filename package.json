@@ -1,4 +1,5 @@
 {
+  "private": true,
   "dependencies": {
     "@prisma/client": "^5.15.1",
     "bcrypt": "^5.1.1",
@@ -14,8 +15,8 @@
     "nodemon": "^3.1.4"
   },
   "scripts": {
-    "start": "node src/server.js",    
-    "dev": "nodemon src/server.js"
+    "start": "node index.js",    
+    "dev": "nodemon index.js"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
