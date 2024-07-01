@@ -28,4 +28,3 @@ jobs:
         username: ${{ secrets.GIT_CPANEL_NODE_USER }}
         password: ${{ secrets.GIT_CPANEL_NODE_PWD }}
         protocol: ${{ secrets.GIT_CPANEL_NODE_PROTOCOL }}
-        local-dir: ./build/
