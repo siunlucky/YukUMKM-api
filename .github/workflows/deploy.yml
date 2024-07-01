@@ -30,7 +30,7 @@ jobs:
         protocol: ${{ secrets.GIT_CPANEL_NODE_PROTOCOL }}
 
     - name: 📂 Run Deploy Script
-        run: |
-          ssh ${{ secrets.GIT_CPANEL_NODE_USER }}@${{ secrets.GIT_CPANEL_NODE_SERVER }} 'bash -s' < deploy.sh
-        env:
-          SSH_PASS: ${{ secrets.GIT_CPANEL_NODE_PWD }}
+      run: |
+        ssh ${{ secrets.GIT_CPANEL_NODE_USER }}@${{ secrets.GIT_CPANEL_NODE_SERVER }} 'bash -s' < deploy.sh
+      env:
+        SSH_PASS: ${{ secrets.GIT_CPANEL_NODE_PWD }}
